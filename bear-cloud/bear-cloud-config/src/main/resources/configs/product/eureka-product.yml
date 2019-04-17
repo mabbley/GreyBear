@@ -1,0 +1,20 @@
+management:
+  security:
+    enabled: false
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+    metadataMap:
+      instanceId: ${spring.application.name}:${random.value}
+  server:
+    wait-time-in-ms-when-sync-empty: 0
+    enable-self-preservation: false
+  client:
+    registry-fetch-interval-seconds: 5
+    eureka-server-connect-timeout-seconds: 30
+    eureka-server-read-timeout-seconds: 120
+    serviceUrl:
+      defaultZone: http://150.150.187.134:8002/eureka/

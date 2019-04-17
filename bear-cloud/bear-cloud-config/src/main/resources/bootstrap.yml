@@ -1,0 +1,17 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: bear-cloud-config
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/configs/, classpath:/configs/dev/, classpath:/configs/test/, classpath:/configs/product/
+
+
+logging:
+  config: classpath:logback-spring.xml

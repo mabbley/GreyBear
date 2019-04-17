@@ -6,6 +6,7 @@
         <artifactId>GreyBear</artifactId>
         <groupId>com.bear</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,7 +14,14 @@
     <packaging>pom</packaging>
     <modules>
         <module>bear-common-core</module>
+        <module>bear-common-swagger</module>
+        <module>bear-common-mysql</module>
     </modules>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
+    </dependencies>
 </project>

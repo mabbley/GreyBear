@@ -1,0 +1,25 @@
+server:
+  port: 8001
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: bear-cloud-eureka
+  cloud:
+    config:
+      name: eureka
+      uri: http://127.0.0.1:8000
+
+eureka:
+  instance:
+    perferIpAddress: true
+    hostname: 127.0.0.1
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+  server:
+       enable-self-preservation: false
+
+logging:
+  config: classpath:logback-spring.xml
