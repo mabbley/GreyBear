@@ -12,21 +12,39 @@ import java.util.Date;
  * Created by mby on 2019/4/17.
  */
 @Component
-public class MetaObjectHandlerConfig extends MetaObjectHandler {
+public class MetaObjectHandlerConfig implements MetaObjectHandler {
 
     @Autowired
     private SnowflakeIdWorker snowflakeIdWorker;
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        setFieldValByName("id",snowflakeIdWorker.nextId(),metaObject);
-        setFieldValByName("del",0L,metaObject);
-        setFieldValByName("createDate",new Date(),metaObject);
-        setFieldValByName("updateDate",new Date(),metaObject);
+        Object id = getFieldValByName("id", metaObject);
+        if(id==null){
+            setFieldValByName("id",snowflakeIdWorker.nextId(),metaObject);
+        }
+
+        Object del = getFieldValByName("del", metaObject);
+        if(id==null){
+            setFieldValByName("del",0L,metaObject);
+        }
+
+        Object createDate = getFieldValByName("createDate", metaObject);
+        if(id==null){
+            setFieldValByName("createDate",new Date(),metaObject);
+        }
+
+        Object updateDate = getFieldValByName("updateDate", metaObject);
+        if(id==null){
+            setFieldValByName("updateDate",new Date(),metaObject);
+        }
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        setFieldValByName("updateDate",new Date(),metaObject);
+        Object updateDate = getFieldValByName("updateDate", metaObject);
+        if(updateDate==null){
+            setFieldValByName("updateDate",new Date(),metaObject);
+        }
     }
 }

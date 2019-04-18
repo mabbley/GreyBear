@@ -71,8 +71,4 @@ public class Admin extends MyBatisEntity<Long> {
      */
     @TableField("status")
     private AdminStatus status;
-
-    public boolean isAdmin(){
-        return loginUser.equals("admin");
-    }
 }

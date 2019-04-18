@@ -1,9 +1,6 @@
 package com.bear.admin.common.base.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.bear.common.core.entity.Entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -32,15 +29,16 @@ public class MyBatisEntity<ID extends Serializable> extends Model implements Ent
     @TableField(fill = FieldFill.INSERT)
     protected ID id;
 
-    @TableField(value = "del",fill = FieldFill.INSERT)
+    @TableField(value = "del",fill = FieldFill.INSERT,strategy = FieldStrategy.NOT_EMPTY)
+    @TableLogic
     protected Long del;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @TableField(value = "create_date",fill = FieldFill.INSERT)
+    @TableField(value = "create_date",fill = FieldFill.INSERT,strategy = FieldStrategy.NOT_EMPTY)
     protected Date createDate;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @TableField(value = "update_date",fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_date",fill = FieldFill.INSERT_UPDATE,strategy = FieldStrategy.NOT_EMPTY)
     protected Date updateDate;
 
     @Override
