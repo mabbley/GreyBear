@@ -31,7 +31,7 @@ public class MyBatisEntity<ID extends Serializable> extends Model implements Ent
 
     @TableField(value = "del",fill = FieldFill.INSERT,strategy = FieldStrategy.NOT_EMPTY)
     @TableLogic
-    protected Long del;
+    protected Integer del;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @TableField(value = "create_date",fill = FieldFill.INSERT,strategy = FieldStrategy.NOT_EMPTY)

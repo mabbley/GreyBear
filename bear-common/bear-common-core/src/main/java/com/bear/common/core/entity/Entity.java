@@ -11,8 +11,8 @@ public interface Entity<ID extends Serializable> extends Serializable {
     ID getId();
     void setId(ID id);
 
-    Long getDel();
-    void setDel(Long del);
+    Integer getDel();
+    void setDel(Integer del);
 
     Date getCreateDate();
     void setCreateDate(Date createDate);
