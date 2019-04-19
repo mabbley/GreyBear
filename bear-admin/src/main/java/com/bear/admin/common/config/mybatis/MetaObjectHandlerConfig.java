@@ -25,17 +25,17 @@ public class MetaObjectHandlerConfig implements MetaObjectHandler {
         }
 
         Object del = getFieldValByName("del", metaObject);
-        if(id==null){
-            setFieldValByName("del",0L,metaObject);
+        if(del==null){
+            setFieldValByName("del",0,metaObject);
         }
 
         Object createDate = getFieldValByName("createDate", metaObject);
-        if(id==null){
+        if(createDate==null){
             setFieldValByName("createDate",new Date(),metaObject);
         }
 
         Object updateDate = getFieldValByName("updateDate", metaObject);
-        if(id==null){
+        if(updateDate==null){
             setFieldValByName("updateDate",new Date(),metaObject);
         }
     }
