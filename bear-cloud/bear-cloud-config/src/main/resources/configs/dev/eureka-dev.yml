@@ -17,4 +17,4 @@ eureka:
     eureka-server-connect-timeout-seconds: 30
     eureka-server-read-timeout-seconds: 120
     serviceUrl:
-      defaultZone: http://127.0.0.1:8001/eureka/
+      defaultZone: http://150.150.187.129:8001/eureka/

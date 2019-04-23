@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--360浏览器优先以webkit内核解析-->
+    <title>系统概览</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link href="../../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+    <link href="../../static/css/main/animate.min.css" th:href="@{/css/main/animate.min.css}" rel="stylesheet"/>
+    <link href="../../static/css/main/style.min862f.css" th:href="@{/css/main/style.min862f.css}" rel="stylesheet"/>
+</head>
+
+<body class="gray-bg">
+<div class="row  border-bottom white-bg dashboard-header">
+    <div class="col-sm-12">
+        <blockquote class="text-warning" style="font-size:14px">管理系统后台
+            <br>…………
+        </blockquote>
+        <hr>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-4">
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>title</h5>
+
+                </div>
+                <div class="ibox-content">
+                    <p><i class="fa fa-send-o"></i> a：a
+                    </p>
+                    <p><i class="fa fa-qq"></i> b：<a href="javascript:;" >b</a>
+                    </p>
+                    <p><i class="fa fa-weixin"></i> c：<a href="javascript:;">c</a>
+                    </p>
+                    <p><i class="fa fa-credit-card"></i> d：<a href="javascript:;">d</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>title</h5>
+                </div>
+                <div class="ibox-content no-padding">
+                    <div class="panel-body">
+                        <div class="panel-group" id="version">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#version" href="#v24">v2.4.0</a><code
+                                            class="pull-right">2018.12.19</code>
+                                    </h5>
+                                </div>
+                                <div id="v24" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <ol>
+                                            <li>1</li>
+                                            <li>2</li>
+                                            <li>3</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>title</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="alert alert-warning">
+                        body
+                    </div>
+                    <p id="pay-qrcode">
+                        img
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>
