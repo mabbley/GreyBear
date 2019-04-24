@@ -5,6 +5,8 @@ import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Properties;
 
@@ -13,7 +15,14 @@ import java.util.Properties;
  */
 @SuppressWarnings("Duplicates")
 @Configuration
-public class AdminConfig {
+public class AdminConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/main").setViewName("main");
+    }
+
 
     @Bean(name = "captchaProducer")
     public DefaultKaptcha getKaptchaBean() {

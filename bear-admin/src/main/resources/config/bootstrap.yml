@@ -25,7 +25,7 @@ eureka:
     register-with-eureka: true
 
 logging:
-  config: classpath:logback-spring.xml
+  config: classpath:./config/logback-spring.xml
 
 
 #mybatis

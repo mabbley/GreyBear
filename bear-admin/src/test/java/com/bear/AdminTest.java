@@ -73,8 +73,9 @@ public class AdminTest extends BaseTest{
         Admin byId = adminService.getById(568402386780438528L);
         log.info("findById :{}", JSON.toJSONString(byId));
     }
+    @Test
     public void findParam(){
-        List<Admin> byParam = adminService.findByParam(ParamMap.init().like("login_user", "y"));
+        List<Admin> byParam = adminService.findByParam(ParamMap.init().eq("login_user", "admin"));
         log.info("findParam :{}", JSON.toJSONString(byParam));
     }
 }
