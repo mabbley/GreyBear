@@ -83,35 +83,10 @@ public class MyShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
         Admin admin = shiroLoginService.login(token.getUsername(), new String(token.getPassword()));
-        /*Admin admin = adminMapper.selectOne(new QueryWrapper<Admin>().eq("login_user", token.getUsername()));
-        //账号不存在
         if(admin == null) {
             throw new UnknownAccountException("账号或密码不正确");
         }
-        //账号锁定
-        if(admin.getStatus().equals(AdminStatus.LOCKING)){
-            throw new LockedAccountException("账号已被锁定,请联系管理员");
-        }
-
-        if(loginRecordCache == null){
-            loginRecordCache = cacheManager.getCache("loginRecordCache");
-        }
-        AtomicInteger retryCount = loginRecordCache.get(token.getUsername());
-        if (retryCount == null) {
-            retryCount = new AtomicInteger(0);
-            loginRecordCache.put(token.getUsername(), retryCount);
-        }
-
-        if(retryCount.incrementAndGet() > Integer.valueOf(maxRetryCount).intValue()){
-            throw new UnknownAccountException("账号或密码错误次数过多");
-        }
-        AtomicInteger finalRetryCount = retryCount;
-        if(!EncryptUtils.hmacSha256(new String(token.getPassword())).toUpperCase().equals(admin.getLoginPwd().toUpperCase())){
-            loginRecordCache.put(token.getUsername(), finalRetryCount);
-            throw new UnknownAccountException("账号或密码不正确");
-        }
-        loginRecordCache.remove(token.getUsername());*/
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(admin, admin.getLoginPwd(), getName());
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(admin, new String(token.getPassword()), getName());
         return info;
     }
 

@@ -30,7 +30,7 @@ public class ShiroLoginServiceImpl implements ShiroLoginService {
     private CacheManager cacheManager;
 
     private Cache<String, AtomicInteger> loginRecordCache;
-    private Cache<String, AtomicInteger> loginPwdCountCache;
+    private Cache<String, Long> loginPwdCountCache;
 
     private static final Integer maxRetryCount = 3;
 
@@ -63,11 +63,11 @@ public class ShiroLoginServiceImpl implements ShiroLoginService {
         }
 
         if(retryCount.incrementAndGet() > Integer.valueOf(maxRetryCount).intValue()){
-            loginPwdCountCache.put(loginUser, retryCount);
-            throw new UnknownAccountException("账号或密码错误次数过多");
+            loginPwdCountCache.put(loginUser, System.currentTimeMillis());
+            throw new UnknownAccountException("账号或密码错误次数过多,请十分钟后再试");
         }
         AtomicInteger finalRetryCount = retryCount;
-        if(!EncryptUtils.hmacSha256(new String(loginPwd)).toUpperCase().equals(admin.getLoginPwd().toUpperCase())){
+        if(!EncryptUtils.hmacSha256(loginPwd).toUpperCase().equals(admin.getLoginPwd().toUpperCase())){
             loginRecordCache.put(loginUser, finalRetryCount);
             throw new UnknownAccountException("账号或密码不正确");
         }

@@ -44,7 +44,7 @@ public class LoginController {
     @Autowired
     private CacheManager cacheManager;
 
-    private Cache<String, AtomicInteger> loginPwdCountCache;
+    private Cache<String, Long> loginPwdCountCache;
 
     @PostConstruct
     public void init() {
@@ -102,9 +102,14 @@ public class LoginController {
     @ResponseBody
     @RequestMapping(value = "/sys/login", method = RequestMethod.POST)
     public ResultView login(String loginUser, String loginPwd, String validateCode, Boolean rememberMe) {
-        AtomicInteger atomicInteger = loginPwdCountCache.get(loginUser);
+        Long atomicInteger = loginPwdCountCache.get(loginUser);
         if(null != atomicInteger){
-            return ResultView.result(-200,"账号或密码错误次数过多",null);
+            Long temp = System.currentTimeMillis() - atomicInteger;
+            if(temp<(1000*60*10)){
+                return ResultView.result(-200,"账号或密码错误次数过多,请十分钟后再试1",null);
+            }else{
+                loginPwdCountCache.remove(loginUser);
+            }
         }
         String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
         if(!validateCode.equalsIgnoreCase(kaptcha)){
@@ -112,7 +117,7 @@ public class LoginController {
         }
         try{
             Subject subject = ShiroUtils.getSubject();
-            UsernamePasswordToken token = new UsernamePasswordToken(loginUser, loginPwd);
+            UsernamePasswordToken token = new UsernamePasswordToken(loginUser, loginPwd,rememberMe);
             subject.login(token);
         }catch (UnknownAccountException e) {
             return ResultView.result(-200,e.getMessage(),null);
@@ -132,6 +137,6 @@ public class LoginController {
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout() {
         ShiroUtils.logout();
-        return "redirect:login.html";
+        return "redirect:login";
     }
 }

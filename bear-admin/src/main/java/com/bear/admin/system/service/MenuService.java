@@ -3,6 +3,8 @@ package com.bear.admin.system.service;
 import com.bear.admin.common.base.service.MyBatisService;
 import com.bear.admin.system.entity.Menu;
 
+import java.util.List;
+
 /**
 * (SysMenu)表服务类
 *
@@ -12,4 +14,5 @@ import com.bear.admin.system.entity.Menu;
 */
 public interface MenuService extends MyBatisService<Menu,Long> {
 
+    List<Menu> findByAdmin(Long adminId);
 }
