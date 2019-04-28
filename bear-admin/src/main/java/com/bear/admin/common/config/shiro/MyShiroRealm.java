@@ -48,7 +48,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        Admin admin = ShiroUtils.getUserEntity();
+        Admin admin = ShiroUtils.getAdminEntity();
         // 角色列表
         Set<String> roles = new HashSet<String>();
         // 功能列表

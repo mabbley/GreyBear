@@ -1,5 +1,6 @@
 package com.bear.admin.system.controller;
 
+import com.bear.admin.common.annotation.ControllerModel;
 import com.bear.admin.common.base.controller.MyBatisController;
 import com.bear.admin.system.entity.Menu;
 import com.bear.admin.system.service.MenuService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 */
 @Controller
 @RequestMapping("/sys/menu")
+@ControllerModel(modelName = "菜单",viewPath = "system/menu")
 public class MenuController extends MyBatisController<Menu,Long, MenuService>  {
 
 }

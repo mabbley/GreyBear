@@ -29,12 +29,12 @@ public class ShiroUtils {
         return SecurityUtils.getSubject();
     }
 
-    public static Admin getUserEntity() {
+    public static Admin getAdminEntity() {
         return (Admin)SecurityUtils.getSubject().getPrincipal();
     }
 
-    public static Long getUserId() {
-        return getUserEntity().getId();
+    public static Long getAdminId() {
+        return getAdminEntity().getId();
     }
 
     public static void setSessionAttribute(Object key, Object value) {

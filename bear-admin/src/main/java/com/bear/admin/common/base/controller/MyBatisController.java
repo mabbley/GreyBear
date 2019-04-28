@@ -1,14 +1,19 @@
 package com.bear.admin.common.base.controller;
 
-import com.bear.admin.common.base.entity.MyBatisEntity;
+import com.bear.admin.common.annotation.ControllerModel;
 import com.bear.admin.common.base.entity.ResultView;
 import com.bear.admin.common.base.entity.SearchParam;
 import com.bear.admin.common.base.service.MyBatisService;
 import com.bear.common.core.ReflectionUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +78,6 @@ public class MyBatisController<T,ID extends Serializable,BaseService extends MyB
         return ResultView.result(baseService.removeByIds(list));
     }
 
-/*
     protected ModelAndView modelAndView(String viewName) {
         return new ModelAndView(toViewPath() + "/" + viewName);
     }
@@ -90,6 +94,12 @@ public class MyBatisController<T,ID extends Serializable,BaseService extends MyB
         }
         return "noPage";
     }
+    public static String toLowerCaseFirstOne(String s) {
+        if (Character.isLowerCase(s.charAt(0)))
+            return s;
+        else
+            return (new StringBuilder()).append(Character.toLowerCase(s.charAt(0))).append(s.substring(1)).toString();
+    }
 
     @RequestMapping(method = {RequestMethod.GET})
     public ModelAndView toPage(ModelMap mmap) {
@@ -97,21 +107,19 @@ public class MyBatisController<T,ID extends Serializable,BaseService extends MyB
     }
 
     @RequestMapping(value = "toCreate", method = {RequestMethod.GET})
-    public ModelAndView toCreate(T model, ModelMap mmap) {
+    public ModelAndView toCreate(ModelMap mmap) {
         return modelAndView("create");
     }
 
     @RequestMapping(value = "toEdit/{id}", method = {RequestMethod.GET})
-    public ModelAndView toEdit(@PathVariable("id") ID id, ModelMap mmap) {
-        ValidationUtil.notNull(id, "主鍵ID不能爲空");
-        T model = iBaseService.selectById(id);
+    public ModelAndView toEdit(@NotNull(message = "主鍵ID不能为空")@PathVariable("id") ID id, ModelMap mmap) {
+        T model = baseService.getById(id);
         mmap.put(toLowerCaseFirstOne(model.getClass().getSimpleName()), model);
         return modelAndView("edit");
     }
 
-    @RequestMapping(value = "other/{view}", method = {RequestMethod.GET})
-    @ResponseBody
-    public ModelAndView other(@PathVariable("view") String view, HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "toOther/{view}", method = {RequestMethod.GET})
+    public ModelAndView toOther(@NotNull(message = "View不能为空")@PathVariable("view") String view, ModelMap mmap) {
         return modelAndView(view);
-    }*/
+    }
 }

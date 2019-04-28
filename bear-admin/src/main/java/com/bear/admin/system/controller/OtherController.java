@@ -1,7 +1,7 @@
 package com.bear.admin.system.controller;
 
-import com.unicorn.admin.common.cache.AdminMenuCache;
-import com.unicorn.admin.common.config.shiro.ShiroUtils;
+import com.bear.admin.common.cache.AdminMenuCache;
+import com.bear.admin.common.config.shiro.ShiroUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,11 +18,16 @@ public class OtherController {
     @Autowired
     private AdminMenuCache adminMenuCache;
 
+    @RequestMapping("main")
+    public String main(ModelMap mmap) throws ExecutionException {
+        mmap.put("menus", adminMenuCache.get(ShiroUtils.getAdminId()));
+        mmap.put("admin", ShiroUtils.getAdminEntity());
+        return "main";
+    }
+
     @RequestMapping("index")
     public String index(ModelMap mmap) throws ExecutionException {
-        mmap.put("menus", adminMenuCache.get(ShiroUtils.getAdminId()));
-        mmap.put("admin", ShiroUtils.getAdmin());
-        return "index";
+        return "common/index";
     }
 
 

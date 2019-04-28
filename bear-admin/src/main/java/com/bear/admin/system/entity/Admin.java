@@ -24,6 +24,12 @@ import java.util.Date;
 public class Admin extends MyBatisEntity<Long> {
 
     /**
+     *  机构
+     */
+    @TableField("org_id")
+    private Long orgId;
+
+    /**
      *  账号
      */
     @TableField("login_user")

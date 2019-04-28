@@ -1,5 +1,6 @@
 package com.bear.admin.system.controller;
 
+import com.bear.admin.common.annotation.ControllerModel;
 import com.bear.admin.common.base.controller.MyBatisController;
 import com.bear.admin.system.entity.Organization;
 import com.bear.admin.system.service.OrganizationService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 */
 @Controller
 @RequestMapping("/sys/organization")
+@ControllerModel(modelName = "机构",viewPath = "system/org")
 public class OrganizationController extends MyBatisController<Organization,Long, OrganizationService>  {
 
 }
