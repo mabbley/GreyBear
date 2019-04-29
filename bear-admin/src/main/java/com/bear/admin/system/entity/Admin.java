@@ -21,7 +21,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("sys_admin")
-public class Admin extends MyBatisEntity<Long> {
+public class Admin extends MyBatisEntity<Long>  {
 
     /**
      *  机构
@@ -44,8 +44,8 @@ public class Admin extends MyBatisEntity<Long> {
     /**
      *  姓名
      */
-    @TableField("user_name")
-    private String userName;
+    @TableField("full_name")
+    private String fullName;
 
     /**
      *  邮件地址
@@ -71,6 +71,13 @@ public class Admin extends MyBatisEntity<Long> {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @TableField("last_time")
     private Date lastTime;
+
+    /**
+     *  账户有效期
+     */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @TableField("expired_time")
+    private Date expiredTime;
 
     /**
      *  状态{NORMAL("正常"), LOCKING("锁定"), DISABLE("禁用")}
