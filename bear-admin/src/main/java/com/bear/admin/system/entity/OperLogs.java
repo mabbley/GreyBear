@@ -46,12 +46,6 @@ public class OperLogs extends MyBatisEntity<Long> {
     private String operName;
 
     /**
-     * 部门名称
-     */
-    @TableField("dept_name")
-    private String deptName;
-
-    /**
      * 请求url
      */
     @TableField("oper_url")

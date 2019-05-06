@@ -24,6 +24,20 @@ public class AdminTest extends BaseTest{
     @Autowired
     private AdminService adminService;
 
+    @Test
+    public void createAdmin(){
+        Admin admin = new Admin();
+        admin.setOrgId(0L);
+        admin.setLoginUser("admin");
+        admin.setLoginPwd("$2a$04$yWSu3Xrz/iSThEvB.qyWk.1KPa09lmZNOKCSnwegAibtPQR.udNWK");
+        admin.setFullName("SuperAdmin");
+        admin.setPhone("15201858917");
+        admin.setEmail("mabnygluck@163.com");
+        admin.setStatus(AdminStatus.NORMAL);
+        log.info("insert start:{}", JSON.toJSONString(admin));
+        adminService.save(admin);
+        log.info("insert end:{}", JSON.toJSONString(admin));
+    }
     public void insert(){
         Admin admin = new Admin();
         ReflectionUtils.RandData(admin);
@@ -73,7 +87,7 @@ public class AdminTest extends BaseTest{
         Admin byId = adminService.getById(568402386780438528L);
         log.info("findById :{}", JSON.toJSONString(byId));
     }
-    @Test
+
     public void findParam(){
         List<Admin> byParam = adminService.findByParam(ParamMap.init().eq("login_user", "admin"));
         log.info("findParam :{}", JSON.toJSONString(byParam));

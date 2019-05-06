@@ -20,7 +20,7 @@ import lombok.Setter;
 public class Organization extends MyBatisEntity<Long> {
 
     /**
-     *  部门名称
+     *  机构名称
      */
     @TableField("org_name")
     private String orgName;
@@ -32,13 +32,14 @@ public class Organization extends MyBatisEntity<Long> {
     private Integer parentId;
 
     /**
-     *  负责人
-     */
-    private String leader;
-
-    /**
      *  状态（0正常 1停用）
      */
     @TableField("status")
     private Integer status;
+
+    /**
+     * 简述
+     */
+    @TableField("synopsis")
+    private String synopsis;
 }

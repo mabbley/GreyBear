@@ -36,4 +36,10 @@ public class Role extends MyBatisEntity<Long> {
      */
     @TableField("status")
     private Integer status;
+
+    /**
+     * 简述
+     */
+    @TableField("synopsis")
+    private String synopsis;
 }

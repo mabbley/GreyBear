@@ -28,6 +28,20 @@ public class Groups extends MyBatisEntity<Long> {
     @TableField("parent_id")
     private Long parentId;
 
+    /**
+     * 状态（0正常 1停用）
+     */
+    @TableField("status")
+    private Integer status;
+
+
+    /**
+     * 简述
+     */
+    @TableField("synopsis")
+    private String synopsis;
+
+
     @TableField(exist = false)
     private List<Groups> children = new ArrayList<>();
 }

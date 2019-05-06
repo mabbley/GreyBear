@@ -1,10 +1,13 @@
 package com.bear.admin.common.config.security;
 
+import com.bear.common.core.exception.CaptchaException;
+import com.google.code.kaptcha.Constants;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,21 +17,26 @@ import java.io.IOException;
 /**
  * Created by mby on 2019/4/28.
  */
+
 public class CaptchaProcessingFilte extends AbstractAuthenticationProcessingFilter {
 
-    protected CaptchaProcessingFilte(String defaultFilterProcessesUrl) {
-        super(defaultFilterProcessesUrl);
+    protected CaptchaProcessingFilte() {
+        super(new AntPathRequestMatcher("/login", "POST"));
         setContinueChainBeforeSuccessfulAuthentication(true);
     }
 
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
+        String validCode = httpServletRequest.getParameter("validateCode");
+        Object attribute = httpServletRequest.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+        if(!validCode.trim().equals(attribute.toString().trim())){
+            throw new CaptchaException(-100,"验证码输入有误");
+        }
         String username = httpServletRequest.getParameter("loginUser");
         String password = httpServletRequest.getParameter("loginPwd");
-        String validCode = httpServletRequest.getParameter("validateCode");
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
-        return token;
+        return getAuthenticationManager().authenticate(token);
     }
 
 

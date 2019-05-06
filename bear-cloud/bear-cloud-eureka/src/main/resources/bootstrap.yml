@@ -9,7 +9,7 @@ spring:
   cloud:
     config:
       name: eureka
-      uri: http://150.150.187.129:8000
+      uri: http://192.168.31.213:8000
 
 eureka:
   instance:

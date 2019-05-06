@@ -34,7 +34,12 @@ public class CustomizeUserDetailsService implements UserDetailsService {
         Admin admin = adminMapper.selectOne(new QueryWrapper<Admin>().eq("login_user", s));
         if(null != admin){
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            List<Role> roleList = roleMapper.selectList(new QueryWrapper<Role>().lambda().inSql(Role::getId, "select role_id fromm sys_admin_role where admin_id=" + admin.getId()));
+            List<Role> roleList = null;
+            if(admin.getLoginUser().equals("admin")){
+                roleList = roleMapper.selectList(new QueryWrapper<Role>());
+            }else{
+                roleList = roleMapper.selectList(new QueryWrapper<Role>().lambda().inSql(Role::getId, "select role_id from sys_admin_role where admin_id=" + admin.getId()));
+            }
             if(CollectionUtils.isNotEmpty(roleList)){
                 roleList.forEach(role -> {
                     GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getRoleCode());

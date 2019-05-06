@@ -30,7 +30,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
-        <thymeleaf.extras.shiro.version>2.0.0</thymeleaf.extras.shiro.version>
     </properties>
 
     <dependencies>

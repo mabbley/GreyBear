@@ -62,22 +62,15 @@ public class Admin extends MyBatisEntity<Long>  {
     /**
      *  末次登陆IP
      */
-    @TableField("last_ip")
-    private String lastIp;
+    @TableField("last_login_ip")
+    private String lastLoginIp;
 
     /**
      *  末次登陆时间
      */
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @TableField("last_time")
-    private Date lastTime;
-
-    /**
-     *  账户有效期
-     */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @TableField("expired_time")
-    private Date expiredTime;
+    @TableField("last_login_time")
+    private Date lastLoginTime;
 
     /**
      *  状态{NORMAL("正常"), LOCKING("锁定"), DISABLE("禁用")}

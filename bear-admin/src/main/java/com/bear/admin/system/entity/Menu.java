@@ -42,12 +42,6 @@ public class Menu extends MyBatisEntity<Long> {
     private String icon;
 
     /**
-     * 过滤路径
-     */
-    @TableField("filter")
-    private String filter;
-
-    /**
      * URL
      */
     @TableField("url")
@@ -70,6 +64,12 @@ public class Menu extends MyBatisEntity<Long> {
      */
     @TableField("weight")
     private Integer weight;
+
+    /**
+     * 简述
+     */
+    @TableField("synopsis")
+    private String synopsis;
 
     /**
      * 子菜单

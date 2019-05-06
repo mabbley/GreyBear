@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
@@ -22,6 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 
@@ -60,10 +62,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomizeAccessDecisionManager customizeAccessDecisionManager;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public CaptchaProcessingFilte CaptchaProcessingFilte(){
+        CaptchaProcessingFilte captchaProcessingFilte = new CaptchaProcessingFilte();
+        captchaProcessingFilte.setAuthenticationManager(authenticationManager);
+        return captchaProcessingFilte;
     }
 
     @Override
@@ -72,9 +84,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/resources/**","/static/**","/css/**","/fonts/**","/img/**","/js/**","/libs/**","/my/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.
-                authorizeRequests()
+        http.csrf().requireCsrfProtectionMatcher(new CsrfSecurityRequestMatcher()).and().addFilterBefore(CaptchaProcessingFilte(), UsernamePasswordAuthenticationFilter.class).
+                authorizeRequests().antMatchers("/", "/login")
+                .permitAll()//.and().addFilterBefore(new CaptchaProcessingFilte(), UsernamePasswordAuthenticationFilter.class).authorizeRequests()
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <O extends FilterSecurityInterceptor> O postProcess(O o) {
@@ -90,6 +108,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 permitAll().
                 failureHandler(customizeAuthenticationFailHandler).
                 successHandler(customizeAuthenticationSuccessHandler).
+                and().
+                headers().
+                frameOptions().
+                disable().
                 and().
                 logout().
                 permitAll().

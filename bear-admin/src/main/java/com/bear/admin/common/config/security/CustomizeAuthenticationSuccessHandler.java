@@ -1,5 +1,7 @@
 package com.bear.admin.common.config.security;
 
+import com.alibaba.fastjson.JSON;
+import com.bear.admin.common.base.entity.ResultView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -22,8 +24,7 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         httpServletResponse.setContentType("application/json;charset=utf-8");
         PrintWriter out = httpServletResponse.getWriter();
-        String s = "{\"status\":\"success\",\"msg\":\"登陆成功\"}";
-        out.write(s);
+        out.write(JSON.toJSONString(ResultView.result(200,"登陆成功",null)));
         out.flush();
         out.close();
     }

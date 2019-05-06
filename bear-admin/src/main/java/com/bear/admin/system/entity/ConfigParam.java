@@ -38,8 +38,8 @@ public class ConfigParam extends MyBatisEntity<Long> {
     private String configValue;
 
     /**
-     * 参数备注
+     * 简述
      */
-    @TableField("config_value")
-    private String configRemark;
+    @TableField("synopsis")
+    private String synopsis;
 }

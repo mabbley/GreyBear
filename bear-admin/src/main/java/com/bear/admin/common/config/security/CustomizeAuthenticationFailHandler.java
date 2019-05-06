@@ -1,9 +1,9 @@
 package com.bear.admin.common.config.security;
 
+import com.alibaba.fastjson.JSON;
+import com.bear.admin.common.base.entity.ResultView;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
@@ -23,15 +23,7 @@ public class CustomizeAuthenticationFailHandler implements AuthenticationFailure
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         httpServletResponse.setContentType("application/json;charset=utf-8");
         PrintWriter out = httpServletResponse.getWriter();
-        StringBuffer sb = new StringBuffer();
-        sb.append("{\"status\":\"error\",\"msg\":\"");
-        if (e instanceof UsernameNotFoundException || e instanceof BadCredentialsException) {
-            sb.append("用户名或密码输入错误，登录失败!");
-        } else {
-            sb.append("登录失败!");
-        }
-        sb.append("\"}");
-        out.write(sb.toString());
+        out.write(JSON.toJSONString(ResultView.result(403,"登录失败",null)));
         out.flush();
         out.close();
     }

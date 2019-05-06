@@ -68,8 +68,8 @@ public class DictData extends MyBatisEntity<Long> {
     private Integer status;
 
     /**
-     * 备注
+     * 简述
      */
-    @TableField("remark")
-    private String remark;
+    @TableField("synopsis")
+    private String synopsis;
 }

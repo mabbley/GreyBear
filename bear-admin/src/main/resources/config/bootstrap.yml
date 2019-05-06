@@ -1,6 +1,7 @@
 server:
   port: 9009
 
+
 spring:
   application:
     name: bear-admin
@@ -9,7 +10,7 @@ spring:
   cloud:
     config:
       name: eureka,admin
-      uri: http://150.150.187.129:8000
+      uri: http://192.168.31.213:8000
 #  boot:
 #    admin:
 #      url: http://150.150.187.134:8003

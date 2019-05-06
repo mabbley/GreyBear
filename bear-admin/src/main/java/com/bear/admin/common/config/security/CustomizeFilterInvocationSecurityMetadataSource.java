@@ -42,7 +42,7 @@ public class CustomizeFilterInvocationSecurityMetadataSource implements FilterIn
         if(CollectionUtils.isNotEmpty(roleList)){
             for(Role role:roleList){
                 ConfigAttribute ca = new SecurityConfig(role.getRoleCode());
-                List<Menu> menuList = menuMapper.selectList(new QueryWrapper<Menu>().lambda().inSql(Menu::getId, "select menu_id fromm sys_role_menu where role_id =" + role.getId() + ""));
+                List<Menu> menuList = menuMapper.selectList(new QueryWrapper<Menu>().lambda().inSql(Menu::getId, "select menu_id from sys_role_menu where role_id =" + role.getId() + ""));
                 if(CollectionUtils.isNotEmpty(menuList)){
                     for(Menu menu:menuList){
                         String url = menu.getUrl();
