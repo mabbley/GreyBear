@@ -1,6 +1,6 @@
 package com.bear.admin.common.config.security;
 
-import com.bear.common.core.exception.CaptchaException;
+import com.bear.admin.common.config.security.exceptions.CaptchCodeException;
 import com.google.code.kaptcha.Constants;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -9,10 +9,8 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Created by mby on 2019/4/28.
@@ -22,16 +20,18 @@ public class CaptchaProcessingFilte extends AbstractAuthenticationProcessingFilt
 
     protected CaptchaProcessingFilte() {
         super(new AntPathRequestMatcher("/login", "POST"));
-        setContinueChainBeforeSuccessfulAuthentication(true);
+//        setContinueChainBeforeSuccessfulAuthentication(true);
+        SimpleUrlAuthenticationFailureHandler failedHandler = (SimpleUrlAuthenticationFailureHandler)getFailureHandler();
     }
 
 
+
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
+    public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException{
         String validCode = httpServletRequest.getParameter("validateCode");
         Object attribute = httpServletRequest.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
         if(!validCode.trim().equals(attribute.toString().trim())){
-            throw new CaptchaException(-100,"验证码输入有误");
+            throw new CaptchCodeException(-200,"验证码输入有误");
         }
         String username = httpServletRequest.getParameter("loginUser");
         String password = httpServletRequest.getParameter("loginPwd");
