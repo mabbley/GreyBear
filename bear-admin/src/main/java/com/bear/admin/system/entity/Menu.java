@@ -48,6 +48,24 @@ public class Menu extends MyBatisEntity<Long> {
     private String url;
 
     /**
+     * 方法名称
+     */
+    @TableField("method")
+    private String method;
+
+    /**
+     * 类名称
+     */
+    @TableField("class_name")
+    private String className;
+
+    /**
+     * 类全路径
+     */
+    @TableField("class_package_name")
+    private String classPackageName;
+
+    /**
      * 类型{ML("目录"),MENU("菜单"),BUTTON("按钮")}
      */
     @TableField("menu_type")
