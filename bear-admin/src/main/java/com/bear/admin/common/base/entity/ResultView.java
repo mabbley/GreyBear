@@ -64,6 +64,11 @@ public class ResultView<T> implements Serializable {
             pageView.setRows(Lists.newArrayList());
             pageView.setTotal(0L);
         }
+        page.getCurrent();
+        page.getPages();
+        page.getRecords();
+        page.getSize();
+        page.getTotal();
         return result(code, message, pageView);
 
     }

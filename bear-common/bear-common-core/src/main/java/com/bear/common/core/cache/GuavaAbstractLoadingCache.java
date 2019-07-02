@@ -62,9 +62,14 @@ public abstract class GuavaAbstractLoadingCache<K, V> {
      */
     protected abstract V fetchData(K key);
 
-    protected void clearAll(){
+    protected void clearAll() {
         getCache().invalidateAll();
     }
+
+    protected void clearByKey(K key) {
+        getCache().refresh(key);
+    }
+
     /**
      * 从缓存中获取数据（第一次自动调用fetchData从外部获取数据），并处理异常
      *
@@ -80,7 +85,7 @@ public abstract class GuavaAbstractLoadingCache<K, V> {
             }
             return result;
         } catch (ExecutionException e) {
-            log.error("cache getValue error:{}",e.getMessage());
+            log.error("cache getValue error:{}", e.getMessage());
         }
         return null;
     }

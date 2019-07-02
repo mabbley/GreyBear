@@ -6,6 +6,7 @@ import com.google.code.kaptcha.Producer;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,6 +78,29 @@ public class LoginController {
             }
         }
         return null;
+    }
+
+
+   /* @RequestMapping("/login")
+    public String login(HttpServletRequest request, HttpServletResponse response,HttpSession httpSession) {
+        Authentication auth = SecurityContextHolder.getContext()
+                .getAuthentication();
+        if (auth instanceof AnonymousAuthenticationToken) {
+            return "login";
+        } else {
+            return "index";
+        }
+    }*/
+
+    @RequestMapping("/logout")
+    public String loginOut(HttpServletRequest request, HttpServletResponse response,HttpSession httpSession) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (null != auth) {
+            httpSession.invalidate();
+            SecurityContextHolder.clearContext();
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "login";
     }
 
 //    /**

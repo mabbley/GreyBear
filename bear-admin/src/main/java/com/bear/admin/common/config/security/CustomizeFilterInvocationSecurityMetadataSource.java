@@ -70,7 +70,8 @@ public class CustomizeFilterInvocationSecurityMetadataSource implements FilterIn
         for (Map.Entry<String, Collection<ConfigAttribute>> entry : resourceMap.entrySet()) {
             String url = entry.getKey();
             if (new AntPathRequestMatcher(url).matches(request)) {
-                return resourceMap.get(url);
+                return entry.getValue();
+
             }
         }
         return null;
